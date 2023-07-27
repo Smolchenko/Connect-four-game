@@ -1,6 +1,5 @@
 const ROWS = 6;
 const COLS = 7;
-
 const directions = [
   [0, 1],
   [1, 0],
@@ -18,6 +17,10 @@ const getColClassName = (gameOver, winner) => {
 
 const getIndicatorClass = (contextProp) => {
   return contextProp === "red" ? "player_one" : "player_two";
+};
+
+const switchPlayer = (player) => {
+  return player === "red" ? "yellow" : "red";
 };
 
 const createBoard = () => {
@@ -100,4 +103,5 @@ export {
   getSessionStorageData,
   setSessionStorageData,
   updateData,
+  switchPlayer,
 };

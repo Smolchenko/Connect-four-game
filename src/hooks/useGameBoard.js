@@ -4,6 +4,7 @@ import { createBoard, checkWinner, ROWS } from "../utils/gameUtils"; // Adjust t
 
 const useGameBoard = () => {
   const [board, setBoard] = useState(() => createBoard());
+  const gameOver = !board.flat().includes(null);
   const [currentPlayer, setCurrentPlayer] = useState("red");
   const [winner, setWinner] = useState(null);
 
@@ -32,7 +33,9 @@ const useGameBoard = () => {
 
   return {
     board,
+    gameOver,
     currentPlayer,
+    setCurrentPlayer,
     winner,
     handleMove,
     resetGame,
