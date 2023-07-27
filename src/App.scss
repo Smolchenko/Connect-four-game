@@ -81,10 +81,14 @@ header {
     letter-spacing: 1px;
     font-weight: 600;
     cursor: pointer;
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s, transform 0.2s ease;
 
     &:hover {
       box-shadow: 0 3px 3px $primary;
+    }
+
+    &.clicked {
+      transform: translateY(2px);
     }
   }
 }
