@@ -1,23 +1,14 @@
 import Board from "../Board";
-import player_1 from "../../assets/player_1.png";
-import player_2 from "../../assets/player_2.png";
+import Player from "./Player";
 
-const Game = () => {
+const Game = ({ board }) => {
   return (
     <main>
-      <div>
-        <img src={player_1} alt="Player 1" />
-        <span>Player 1</span>
-        <span>NUM</span>
-      </div>
+      <Player num="one" />
       <div className="game">
-        <Board />
+        <Board board={board} />
       </div>
-      <div>
-        <img src={player_2} alt="Player 2" />
-        <span>Player 2</span>
-        <span>NUM</span>
-      </div>
+      <Player num="two" />
     </main>
   );
 };
