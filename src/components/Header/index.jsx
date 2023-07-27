@@ -1,12 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 
 import { GameContext } from "../../context/GameContext";
-import { getIndicatorClass } from "../../utils/gameUtils";
+import { getIndicatorClass, switchPlayer } from "../../utils/gameUtils";
 import connect_four from "../../assets/connect_four.png";
 
 const Header = () => {
-  const { currentPlayer, winner, resetGame } = useContext(GameContext);
+  const { currentPlayer, setCurrentPlayer, winner, resetGame, gameOver } =
+    useContext(GameContext);
   const [clicked, setClicked] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(5);
 
   const handleClick = () => {
     setClicked(true);
@@ -23,6 +25,29 @@ const Header = () => {
     }
   }, [clicked]);
 
+  useEffect(() => {
+    if (timeRemaining > 0) {
+      const intervalId = setInterval(() => {
+        if (!winner && !gameOver) {
+          setTimeRemaining((prevTime) => prevTime - 1);
+        }
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    } else {
+      if (!winner || !gameOver) {
+        setCurrentPlayer(() => switchPlayer(currentPlayer));
+        setTimeRemaining(5);
+      }
+    }
+  }, [currentPlayer, winner, timeRemaining, gameOver, setCurrentPlayer]);
+
+  useEffect(() => {
+    if (!winner || !gameOver) {
+      setTimeRemaining(5);
+    }
+  }, [currentPlayer, winner, gameOver]);
+
   return (
     <header>
       <div className="img-container">
@@ -36,10 +61,10 @@ const Header = () => {
               : getIndicatorClass(currentPlayer)
           }`}
         />
-        {!winner && <span>TIME LEFT 7s</span>}
+        {!winner && <span>TIME LEFT {timeRemaining}s</span>}
         {winner && <span className="winner">Winner is {`${winner}`}!</span>}
       </div>
-      <button className={clicked && "clicked"} onClick={handleClick}>
+      <button className={clicked ? "clicked" : undefined} onClick={handleClick}>
         Restart
       </button>
     </header>

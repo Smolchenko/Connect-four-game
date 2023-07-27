@@ -4,8 +4,7 @@ import { GameContext } from "../../context/GameContext";
 import { getColClassName, getCellClassName } from "../../utils/gameUtils";
 
 const Board = () => {
-  const { winner, board, handleMove } = useContext(GameContext);
-  const gameOver = !board.flat().includes(null);
+  const { winner, gameOver, board, handleMove } = useContext(GameContext);
 
   return (
     <div className="board">
