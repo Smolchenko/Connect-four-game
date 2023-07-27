@@ -1,17 +1,18 @@
 import { useContext } from "react";
 
 import { GameContext } from "../../context/GameContext";
-import { getCellClassName } from "../../utils/gameUtils";
+import { getColClassName, getCellClassName } from "../../utils/gameUtils";
 
 const Board = () => {
-  const { board, handleMove } = useContext(GameContext);
+  const { winner, board, handleMove } = useContext(GameContext);
+  const gameOver = !board.flat().includes(null);
 
   return (
     <div className="board">
       {board.map((col, colIndex) => (
         <div
           key={colIndex}
-          className="col"
+          className={getColClassName(gameOver, winner)}
           onClick={() => handleMove(colIndex)}
         >
           {col.map((cell, rowIndex) => (

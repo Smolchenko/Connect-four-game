@@ -1,8 +1,19 @@
 const ROWS = 6;
 const COLS = 7;
 
+const directions = [
+  [0, 1],
+  [1, 0],
+  [1, 1],
+  [1, -1],
+];
+
 const getCellClassName = (cell) => {
   return cell !== null ? `circle ${cell}` : "circle";
+};
+
+const getColClassName = (gameOver, winner) => {
+  return gameOver || winner ? `col sealed` : "col";
 };
 
 const getIndicatorClass = (contextProp) => {
@@ -14,13 +25,6 @@ const createBoard = () => {
 };
 
 const checkWinner = (board, col, row, currentPlayer, setWinner) => {
-  const directions = [
-    [0, 1], // horizontal
-    [1, 0], // vertical
-    [1, 1], // diagonal up-right
-    [1, -1], // diagonal up-left
-  ];
-
   for (const [dy, dx] of directions) {
     let count = 1;
     count += checkDirection(board, col, row, dy, dx);
@@ -53,4 +57,47 @@ const checkDirection = (board, col, row, dy, dx) => {
   return count;
 };
 
-export { getCellClassName, getIndicatorClass, createBoard, checkWinner, ROWS };
+const playDataDefault = {
+  red_wins: 0,
+  yellow_wins: 0,
+};
+
+const getSessionStorageData = (key) => {
+  try {
+    const data = JSON.parse(sessionStorage.getItem(key));
+    return data || playDataDefault;
+  } catch (error) {
+    console.error(`Error parsing local storage data for ${key}:`, error);
+    return playDataDefault;
+  }
+};
+
+const setSessionStorageData = (key, data) => {
+  sessionStorage.setItem(key, JSON.stringify(data));
+};
+
+const updateData = (winner, gameData, setGameData) => {
+  let updatedPlayData;
+
+  if (winner) {
+    updatedPlayData = {
+      ...gameData,
+      [`${winner}_wins`]: gameData[`${winner}_wins`] + 1,
+    };
+
+    setSessionStorageData("connect_four_PlayData", updatedPlayData);
+    setGameData(updatedPlayData);
+  }
+};
+
+export {
+  getCellClassName,
+  getColClassName,
+  getIndicatorClass,
+  createBoard,
+  checkWinner,
+  ROWS,
+  getSessionStorageData,
+  setSessionStorageData,
+  updateData,
+};

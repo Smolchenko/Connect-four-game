@@ -1,8 +1,31 @@
+import { useState, useContext, useEffect } from "react";
+
+import { GameContext } from "../../context/GameContext";
+import {
+  getSessionStorageData,
+  setSessionStorageData,
+  updateData,
+} from "../../utils/gameUtils";
 import player_1 from "../../assets/player_1.png";
 import player_2 from "../../assets/player_2.png";
 
-const Player = ({ num }) => {
-  const identificator = num === "one" ? 1 : 2;
+const Player = ({ type }) => {
+  const { winner, board } = useContext(GameContext);
+  const gameOver = !board.includes(null);
+  const [gameData, setGameData] = useState(() =>
+    getSessionStorageData("connect_four_PlayData")
+  );
+
+  const identificator = type === "red" ? 1 : 2;
+  const score = gameData[`${type}_wins`];
+
+  useEffect(() => {
+    setSessionStorageData("connect_four_PlayData", gameData);
+  }, [gameData]);
+
+  useEffect(() => {
+    updateData(winner, gameData, setGameData);
+  }, [winner]);
 
   return (
     <div>
@@ -11,7 +34,7 @@ const Player = ({ num }) => {
         alt={`Player ${identificator}`}
       />
       <span>Player {identificator}</span>
-      <span className="score">0</span>
+      <span className="score">{score}</span>
     </div>
   );
 };
