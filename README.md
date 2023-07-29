@@ -62,7 +62,7 @@ Start playing by clicking somewhere on the board.
 ## Technologies Used
 
 <a name="technologies-used"></a>
-React | JavaScript | CSS3 | SASS | HTML5 | sessionStorage | Google Fonts [UPDATE]
+React | JavaScript | CSS3 | SASS | HTML5 | sessionStorage
 
 ## License
 
