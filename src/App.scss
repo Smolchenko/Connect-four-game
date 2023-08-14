@@ -203,37 +203,14 @@ main {
 
   @media (max-height: 799px) and (orientation: landscape) {
     min-height: 500px;
-
-    .game {
-      height: 90vh;
-    }
-  }
-
-  @media (max-width: 1024px) and (orientation: landscape) {
-    .game {
-      height: 65vh;
-    }
-  }
-
-  @media (max-height: 600px) and (orientation: landscape) {
-    .game {
-      height: 90vh;
-    }
-  }
-
-  @media (max-height: 500px) and (orientation: landscape) {
-    .game {
-      height: 100vh;
-    }
   }
 }
 
 .game {
   display: flex;
   flex-direction: column;
-  align-self: flex-start;
+  align-self: center;
   flex: 1;
-  height: 70vh;
   max-width: 60%;
   margin: 3vh 5vh;
   padding-bottom: 10px;
@@ -242,6 +219,7 @@ main {
   backdrop-filter: blur(30px);
   box-shadow: 0 10px 6px $primary;
   border: 1px solid $primary;
+  height: fit-content;
 
   @keyframes fadeIn {
     0% {
@@ -366,14 +344,6 @@ main {
         }
       }
     }
-  }
-
-  @media (max-width: 1080px) {
-    height: 65vh;
-  }
-
-  @media (max-width: 980px) {
-    height: 55vh;
   }
 
   @media (max-width: 912px) {

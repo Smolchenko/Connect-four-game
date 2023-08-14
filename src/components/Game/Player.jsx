@@ -10,8 +10,7 @@ import player_1 from "../../assets/player_1.png";
 import player_2 from "../../assets/player_2.png";
 
 const Player = ({ type }) => {
-  const { winner, board } = useContext(GameContext);
-  const gameOver = !board.includes(null);
+  const { winner } = useContext(GameContext);
   const [gameData, setGameData] = useState(() =>
     getSessionStorageData("connect_four_PlayData")
   );
